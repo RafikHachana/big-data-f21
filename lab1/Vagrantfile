@@ -8,26 +8,20 @@ BOX_IMAGE = "ubuntu/bionic64"
 # backwards compatibility). Please don't change it unless you know what
 # you're doing.
 Vagrant.configure("2") do |config|
-  config.vm.define "master" do |subconfig|
-    subconfig.vm.box = BOX_IMAGE
-    config.vm.provision :shell, path: "bootstrap.sh"
-    subconfig.vm.network :private_network, ip: "10.0.0.10"
-    subconfig.vm.hostname = "master"
-    subconfig.vm.network :private_network, ip: "10.0.0.10"
-  end
+  
 
   config.vm.define "node1" do |subconfig|
     subconfig.vm.box = BOX_IMAGE # you can use different image here if you need
-    config.vm.provision :shell, path: "bootstrap.sh"
-    config.vm.network :forwarded_port, guest: 80, host: 4568
+    subconfig.vm.provision :shell, path: "bootstrap.sh"
+    subconfig.vm.network :forwarded_port, guest: 80, host: 4578
     subconfig.vm.hostname = "node1"
     subconfig.vm.network :private_network, ip: "10.0.0.11"
   end
 
   config.vm.define "node2" do |subconfig|
     subconfig.vm.box = BOX_IMAGE
-    config.vm.provision :shell, path: "bootstrap.sh"
-    config.vm.network :forwarded_port, guest: 80, host: 4569
+    subconfig.vm.provision :shell, path: "bootstrap.sh"
+    subconfig.vm.network :forwarded_port, guest: 80, host: 4579
     subconfig.vm.hostname = "node2"
     subconfig.vm.network :private_network, ip: "10.0.0.12"
   end
